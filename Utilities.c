@@ -31,3 +31,17 @@ Can generate either public or private key
 char create_key(){
 
 }
+
+/*
+Phi function 
+phi(n)=(p-1)(q-1)
+Parameters:
+    p - large prime
+    q - large prime
+Returns:
+    n - Euler Phi result
+ */
+int Phi(){}
+
+
+    

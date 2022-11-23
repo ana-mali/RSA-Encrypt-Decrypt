@@ -21,7 +21,7 @@ Parameters:
 Returns:
     output - string as plain text
 */
-char decrupt(char *cipher){
+char decrypt(char *cipher){
 
 }
 

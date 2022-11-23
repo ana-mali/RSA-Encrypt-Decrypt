@@ -26,10 +26,10 @@ char decrupt(char *cipher){
 }
 
 /*
-Can generate either public or private key
+Generate both public or private key
 */
 char create_key(){
-
+    
 }
 
 /*
@@ -41,7 +41,10 @@ Parameters:
 Returns:
     n - Euler Phi result
  */
-int Phi(){}
+int Phi(int p, int q){
+    int n = (p-1)*(q-1);
+    return n;
+}
 
 
     

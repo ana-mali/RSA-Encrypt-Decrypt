@@ -94,10 +94,13 @@ Returns:
 */
 int RNG_prime(){
     int found=0;
-    extern unsigned int urand();
+
+    time_t t;
+   /* Intializes random number generator */
+    srand((unsigned) time(&t));
     int lower = 1;
     int upper = 1000;
-    int p = urand() % (upper - lower) + lower;
+    int p = rand() % (upper - lower) + lower;
     for (int i = 2; i <= p / 2; ++i) {
     // if n is divisible by i, then n is not prime
     // change flag to 1 for non-prime number

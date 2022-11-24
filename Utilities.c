@@ -100,22 +100,25 @@ Returns:
     p - prime # for p and q 
 */
 int RNG_prime(){
-    int i, n;
+    int found=0;
     time_t t;
-    /* Intializes random number generator */
+   /* Intializes random number generator */
     srand((unsigned) time(&t));
-    /* random numbers from 0 to 1000 */
-    int randomInt = rand() % 1000;
-    if (check_prime(randomInt) == 1){
-        return randomInt;
-    }
-    else { 
-        while(1){
-            randomInt = rand() % 1000;
-            if (check_prime(randomInt) == 1){
-                return randomInt;
-            }
+    int lower = 1;
+    int upper = 1000;
+    int p = rand() % (upper - lower) + lower;
+    for (int i = 2; i <= p / 2; ++i) {
+    // if n is divisible by i, then n is not prime
+    // change flag to 1 for non-prime number
+        if (p % i == 0) {
+            found = 1;
+            break;
         }
+    }
+    if (found==0){
+        return p;
+    }else{
+        RNG_prime(); //run program again until prime 
     }
 }
 

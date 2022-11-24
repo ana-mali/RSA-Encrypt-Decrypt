@@ -2,6 +2,14 @@
 #include <stdlib.h>
 #include <string.h> 
 #include <math.h>
+#include <time.h>
+int RNG_prime();
+int coprime(int n1,int n2);
+int setup_RSA_values(char*);
+int generate_key(int n,int phi);
+char encrypt(int plain, int n, int e);
+int Phi(int p, int q);
+
 
 //Anastasia, Jonotham and Ruicheng
 //CP460 Applied Cryptography Project
@@ -94,7 +102,6 @@ Returns:
 */
 int RNG_prime(){
     int found=0;
-
     time_t t;
    /* Intializes random number generator */
     srand((unsigned) time(&t));
@@ -124,9 +131,9 @@ Returns:
     output - string as cipher text
 */
 char encrypt(int plain, int n, int e){
-double y=pow(plain,e);
-long w=y;
-return w%n;
+    double y=pow(plain,e);
+    long w=y;
+    return w%n;
 }
 
 /*

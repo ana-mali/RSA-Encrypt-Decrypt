@@ -8,9 +8,8 @@ int coprime(int n1,int n2);
 int setup_RSA_values(char*);
 int generate_key(int n,int phi);
 char encrypt(int plain, int n, int e);
+char decrypt(int cipher,int n, int d);
 int Phi(int p, int q);
-
-
 //Anastasia, Jonotham and Ruicheng
 //CP460 Applied Cryptography Project
 
@@ -112,8 +111,8 @@ int RNG_prime(){
     // if n is divisible by i, then n is not prime
     // change flag to 1 for non-prime number
         if (p % i == 0) {
-        found = 1;
-        break;
+            found = 1;
+            break;
         }
     }
     if (found==0){
@@ -172,6 +171,4 @@ int Phi(int p, int q){
 int main(){
     int p=RNG_prime();
     printf("%d\n",p);
-
-
 }

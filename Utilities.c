@@ -11,7 +11,7 @@ int *generate_key(int n,int phi);
 char encrypt(int plain, int n, int e);
 char decrypt(int cipher,int n, int d);
 int Phi(int p, int q);
-//Anastasia, Jonotham and Ruicheng
+//Anastasia, Jonatham and Ruicheng
 //CP460 Applied Cryptography Project
 
 //Module used for utility functions for RSA 
@@ -79,7 +79,6 @@ Returns:
 int* generate_key(int n,int phi){
     //e must be less than phi
     //e must be coprime of n and phi
-    int e;
     int* arr = (int*)malloc(sizeof(int)*2);
     for (int i=2;i<phi;i++){
         if (coprime(i,n) && coprime(i,phi)){
@@ -99,7 +98,7 @@ int* generate_key(int n,int phi){
 
     int i=1;
     for (;;){
-        int value=i*e;
+        int value=i*arr[0];
         if (value%phi==1){
             arr[1]=i;
             break;
@@ -202,5 +201,4 @@ int main(){
     printf("p: %d q: %d\n",p,q);
     printf("n: %d phi: %d\n",n,phi);
     printf("e: %d d:%d \n",arr_e_d[0],arr_e_d[1]);
- //   printf("e*d mod phi = 1 = %d*%d mod %d= %d",arr_e_d[0],arr_e_d[1],phi,(arr_e_d[0]*arr_e_d[1])%phi);
 }

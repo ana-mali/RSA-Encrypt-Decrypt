@@ -166,6 +166,8 @@ int Phi(int p, int q){
 
 
 int main(){
+    printf("HELLO");
     int p=RNG_prime();
     printf("%d\n",p);
+
 }

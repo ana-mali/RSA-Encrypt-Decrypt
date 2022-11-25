@@ -3,10 +3,11 @@
 #include <string.h> 
 #include <math.h>
 #include <time.h>
+#include <windows.h>
 int RNG_prime();
 int coprime(int n1,int n2);
 int setup_RSA_values(char*);
-int generate_key(int n,int phi);
+int *generate_key(int n,int phi);
 char encrypt(int plain, int n, int e);
 char decrypt(int cipher,int n, int d);
 int Phi(int p, int q);
@@ -34,10 +35,22 @@ int setup_RSA_values(char* plaintext){
     int phi=Phi(p,q); 
 //    int e=
 //    int d=
-    
+
 
     
 }
+
+
+int find_gcd(int num1, int num2){
+    int gcd; 
+    for (int i = 1; i <= num1 && i <= num2 ; ++i){
+        if (num1 % i == 0 && num2 % i == 0){
+            gcd = i;
+        }
+    }
+    return gcd;
+}
+
 /* 
 Parameters:
     num1 - integer
@@ -46,17 +59,12 @@ Returns:
     found - returns 1 if they are coprime and 0 otherwise*/
 int coprime(int num1, int num2)  
 {  
-    int min, count, found = 1;  
-    min = num1 < num2 ? num1 : num2;  
-    for(count = 2; count <= min; count++)  
-    {  
-        if( num1 % count == 0 && num2 % count == 0 )  //if divisible then not coprime
-        {  
-            found = 0;  
-            break;  
-        }  
-    }  
-    return(found);  
+    if (find_gcd(num1, num2) == 1){
+        return 1;
+    }
+    else{
+        return 0;
+    }
 }
 
 
@@ -66,30 +74,39 @@ Paramters:
     phi - used to help compute results
     n - p*q
 Returns:
-    e - encryption value
-    d - decryption value
+    arr - array of size 2 [e,d]
 */
-int generate_key(int n,int phi){
+int* generate_key(int n,int phi){
     //e must be less than phi
     //e must be coprime of n and phi
-    int e,d;
-    for (int i=1;i<n;i++){
-        if (coprime(i,n)){
-            if (coprime(i,phi))
-            e=i;
+    int e;
+    int* arr = (int*)malloc(sizeof(int)*2);
+    for (int i=2;i<phi;i++){
+        if (coprime(i,n) && coprime(i,phi)){
+            arr[0]=i;
             break;
         }
     }
+    
+     //d*e mod phi =1
+    // int counter=1;
+    // int val=counter*e;
+    // while(!val%phi==1){
+    //     counter++;
+    //     val=counter*e;
+    // }
+    // arr[1]=counter;
 
-    for (int i=1;i<n;i++){
+    int i=1;
+    for (;;){
         int value=i*e;
-        int m=value%n;
-        if (m==1){
-            d=i;
+        if (value%phi==1){
+            arr[1]=i;
             break;
         }
+        i++;
     }
-    return e,d;
+    return arr;
 }
 
 int check_prime(int a)
@@ -177,6 +194,13 @@ int Phi(int p, int q){
 
 int main(){
     int p=RNG_prime();
-    printf("%d\n",p);
-
+    Sleep(1000);
+    int q=RNG_prime();
+    int phi=Phi(p,q);
+    int n=p*q;
+    int * arr_e_d =generate_key(n,phi);
+    printf("p: %d q: %d\n",p,q);
+    printf("n: %d phi: %d\n",n,phi);
+    printf("e: %d d:%d \n",arr_e_d[0],arr_e_d[1]);
+ //   printf("e*d mod phi = 1 = %d*%d mod %d= %d",arr_e_d[0],arr_e_d[1],phi,(arr_e_d[0]*arr_e_d[1])%phi);
 }

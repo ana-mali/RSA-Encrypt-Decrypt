@@ -92,7 +92,17 @@ int generate_key(int n,int phi){
     return e,d;
 }
 
-
+int check_prime(int a)
+{
+   int c;
+ 
+   for ( c = 2 ; c <= a - 1 ; c++ )
+   { 
+      if ( a%c == 0 )
+     return 0;
+   }
+   return 1; // is prime
+}
 
 /*
 Random Prime Number Generator
@@ -166,7 +176,6 @@ int Phi(int p, int q){
 
 
 int main(){
-    printf("HELLO");
     int p=RNG_prime();
     printf("%d\n",p);
 
